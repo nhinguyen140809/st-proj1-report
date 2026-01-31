@@ -1,0 +1,54 @@
+\section{Đề xuất sửa chữa}
+
+Trong phần này, nhóm trích dẫn một số lỗi tiêu biểu phát hiện được trong quá trình review thư mục \texttt{com/} và đưa ra các phương án khắc phục cụ thể nhằm tối ưu hóa mã nguồn.
+
+\subsection{Lỗi [Mã lỗi trong Checklist, VD: I.7 Control Flow]}
+\begin{itemize}
+    \item \textbf{Tệp tin:} \texttt{[Tên\_file].java}
+    \item \textbf{Vị trí:} Dòng [Số dòng]
+    \item \textbf{Mô tả lỗi:} [Mô tả chi tiết lỗi, ví dụ: Thiếu câu lệnh default trong switch-case dẫn đến rủi ro không xử lý được các giá trị ngoại lệ.]
+\end{itemize}
+
+\textbf{Mã nguồn hiện tại}
+
+\begin{lstlisting}[language=Java]
+switch (status) {
+    case 1: ... break;
+    case 2: ... break;
+}
+\end{lstlisting}
+
+\textbf{Đề xuất sửa đổi}
+
+\begin{lstlisting}[language=Java]
+switch (status) {
+    case 1: ... break;
+    case 2: ... break;
+    default:
+        throw new IllegalStateException();
+}
+\end{lstlisting}
+
+
+\subsection{Lỗi [Mã lỗi, VD: III.3 SQL Injection]}
+
+\begin{itemize}
+    \item \textbf{Tệp tin:} \texttt{[Tên\_file].java}
+    \item \textbf{Mô tả lỗi:} Sử dụng cộng chuỗi trực tiếp trong truy vấn SQL, gây nguy cơ bảo mật nghiêm trọng.
+\end{itemize}
+
+\textbf{Mã nguồn hiện tại} 
+
+\begin{lstlisting}[language=Java]
+String sql = "SELECT * FROM users 
+              WHERE id = " + id;
+\end{lstlisting}
+
+\textbf{Đề xuất sửa đổi} 
+\begin{lstlisting}[language=Java]
+String sql = "SELECT * FROM users 
+              WHERE id = ?";
+PreparedStatement pstmt = 
+    conn.prepareStatement(sql);
+pstmt.setInt(1, id);
+\end{lstlisting}

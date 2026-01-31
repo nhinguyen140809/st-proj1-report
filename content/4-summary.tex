@@ -1,0 +1,24 @@
+\section{Tóm tắt kết quả}
+
+Sau khi rà soát các tệp nguồn trong thư mục \texttt{com/}, nhóm đã tổng hợp và phân loại các lỗi dựa trên bộ \textit{Java Code Review Checklist}. Tổng cộng phát hiện được \textbf{[Tổng số]} lỗi, được tóm tắt qua bảng dưới đây:
+
+\begin{longtable}{|l|c|r|} 
+\hline 
+\textbf{Nhóm mục tiêu (Objective)} & \textbf{Số lượng lỗi} & \textbf{Tỷ lệ (\%)} \\ 
+\hline 
+I. Defect Objective & [Số] & [\%] \\ 
+\hline 
+II. Ambiguity Objective & [Số] & [\%] \\ 
+\hline 
+III. Redundance Objective & [Số] & [\%] \\
+\hline 
+\textbf{Tổng cộng} & \textbf{[Tổng]} & \textbf{100\%} \\ 
+\hline 
+\end{longtable}
+
+\noindent Dưới đây là phân tích chi tiết các nhóm lỗi có tần suất xuất hiện cao nhất:
+
+\begin{itemize} [itemsep=0pt] 
+    \item \textbf{Nhóm lỗi [Mã số - Tên nhóm, VD: I.1 Variable Declaration]:} Chiếm [\%] tổng số lỗi. Các vi phạm chủ yếu tập trung vào [ví dụ: quy tắc đặt tên camelCase, biến chưa được khởi tạo]. 
+    \item \textbf{Nhóm lỗi [Mã số - Tên nhóm, VD: I.9 Comment]:} Chiếm [\%] tổng số lỗi. Phổ biến nhất là tình trạng [ví dụ: thiếu Javadoc cho các phương thức quan trọng hoặc comment không cập nhật theo code]. \item \textbf{Nhóm lỗi [Mã số - Tên nhóm, VD: I.7 Control Flow]:} Chiếm [\%] tổng số lỗi. Các vấn đề tiêu biểu gồm [ví dụ: thiếu câu lệnh default trong cấu trúc switch-case hoặc vòng lặp tiềm ẩn nguy cơ vô hạn]. 
+\end{itemize}

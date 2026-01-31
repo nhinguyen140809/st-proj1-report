@@ -1,0 +1,230 @@
+\documentclass[a4paper]{article}
+\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+\usepackage{vntex}
+\usepackage{amsmath}
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{graphicx}							% Standard graphics package
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{tikz}
+\usepackage{xurl}
+\usetikzlibrary{arrows,snakes,backgrounds}
+\usepackage{hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+%\usepackage{pstcol} 								% PSTricks with the standard color package
+\newtheorem{theorem}{{\bf Theorem}}
+\newtheorem{property}{{\bf Property}}
+\newtheorem{proposition}{{\bf Proposition}}
+\newtheorem{corollary}[proposition]{{\bf Corollary}}
+\newtheorem{lemma}[proposition]{{\bf Lemma}}
+
+\AtBeginDocument{\renewcommand*\contentsname{Mục lục}}
+\AtBeginDocument{\renewcommand*\refname{Tài liệu tham khảo}}
+
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{image/hcmut.png}}
+    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+   \end{picture}&
+	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily Trường Đại học Bách khoa - ĐHQG-HCM}\\
+		\textbf{\bf \ttfamily Khoa Khoa học và Kỹ thuật Máy tính}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+%%%
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{indentfirst}
+
+\usepackage{comment}
+\usepackage{xurl}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\setstretch{1.4}
+\usepackage{float}
+
+\usepackage{minted}
+\usepackage{svg}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{blkarray,booktabs,bigstrut}
+\usepackage{enumitem}
+\usepackage{tabto}
+
+     
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{RGB}{58,124,34}
+\definecolor{codegray}{RGB}{128,128,128}
+\definecolor{codepurple}{RGB}{167,9,245}
+\definecolor{backcolour}{RGB}{245,245,245}
+
+
+
+\lstdefinelanguage{pseudocode} {
+    morekeywords={
+        break,const,continue,delete,do,while,export,for,function,
+        if,else,import,instanceOf,label,let,new,return,switch,this,
+        throw,try,catch,typeof,var,void,yield,
+        },
+    sensitive=false,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[d]',
+    alsoletter={.},
+    numbers=none
+}
+
+\lstdefinestyle{code}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\ttfamily\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\linespread{1.08}\ttfamily,
+    breakatwhitespace=true,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstset{style=code, language=html}
+\lstloadlanguages{[Visual]C++,[ISO]C++}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\fancyfoot[L]{\scriptsize \ttfamily Bài tập lớn 1 Kiểm tra phần mềm}
+\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
+
+\begin{titlepage}
+\begin{center}
+ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH \\
+TRƯỜNG ĐẠI HỌC BÁCH KHOA \\
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH
+\end{center}
+
+\vspace{1cm}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=3cm]{image/hcmut.png}
+\end{center}
+\end{figure}
+
+\vspace{1cm}
+
+
+\begin{center}
+\begin{tabular}{c}
+\multicolumn{1}{l}{\textbf{{\Large KIỂM TRA PHẦN MỀM ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}}\\
+~~\\
+\hline
+\\
+\multicolumn{1}{l}{\textbf{{\Large Bài tập lớn 1}}}
+\\
+\\
+\textbf{{\Huge Code Review}}\\
+\\
+
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+
+\begin{table}[h]
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{rrl}
+\hspace{3 cm} & Giáo viên hướng dẫn: &PGS. TS. Bùi Hoài Thắng\\
+& Sinh viên thực hiện: &Bùi Trọng Văn -- 2213915 \\
+& & Phạm Ngọc Long -- 2211894 \\
+& & Nguyễn Trần Yến Nhi	-- 2312506 \\
+& & Bùi Trọng Hiển -- 2310993 \\
+& & Đặng Ngọc Bảo Trâm -- 2213568 \\
+
+\end{tabular}
+\end{table}
+\vspace{1.5cm}
+\begin{center}
+{\footnotesize Thành phố Hồ Chí Minh, Tháng 2 - 2026}
+\end{center}
+\end{titlepage}
+
+
+\newpage
+\setstretch{1.4}
+\tableofcontents
+\newpage
+
+\input{content/1-intro}
+
+\input{content/2-memlist}
+
+\input{content/3-review-process}
+
+\input{content/4-summary}
+
+\input{content/5-suggestion}
+
+\input{content/6-conclusion}
+
+\end{document}
+
