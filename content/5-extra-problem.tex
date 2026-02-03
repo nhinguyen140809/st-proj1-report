@@ -2,38 +2,89 @@
 
 Trong phần này, nhóm trích dẫn một số lỗi tiêu biểu phát hiện được trong quá trình review thư mục \texttt{com/} mà không nằm trong \textit{Java Code Review Checklist}. Mỗi lỗi sẽ bao gồm mô tả, vị trí, mã nguồn hiện tại và đề xuất sửa đổi cụ thể.
 
-\subsection{Lỗi []}
+\subsection{Lỗi syntax trong khối catch}
 \begin{itemize}
-    \item \textbf{Tệp tin:} \texttt{[Tên\_file].java}
-    \item \textbf{Vị trí:} Dòng [Số dòng]
-    \item \textbf{Mô tả lỗi:} [Mô tả chi tiết lỗi, ví dụ: Thiếu câu lệnh default trong switch-case dẫn đến rủi ro không xử lý được các giá trị ngoại lệ.]
+    \item \textbf{Tệp tin:} \texttt{/ohs/services/DoctorService.java}
+    \item \textbf{Vị trí:} Dòng 86 - 90
+    \item \textbf{Mô tả lỗi:} Lỗi cú pháp, dư dấu ngoặc nhọn \texttt{\}} trong khối \texttt{catch}.
 \end{itemize}
 
 \textbf{Mã nguồn hiện tại}
 
 \begin{lstlisting}[language=Java]
-switch (status) {
-    case 1: ... break;
-    case 2: ... break;
+try {
+    // some code
+} catch (SQLException ex) { } // extra closing brace
+} finally {  
+    close(rs, preparedStatement, con);
 }
 \end{lstlisting}
 
 \textbf{Đề xuất sửa đổi}
 
 \begin{lstlisting}[language=Java]
-switch (status) {
-    case 1: ... break;
-    case 2: ... break;
-    default:
-        throw new IllegalStateException();
+try {
+    // some code
+} catch (SQLException ex) { 
+    // handle exception
+} finally {  
+    close(rs, preparedStatement, con);
 }
 \end{lstlisting}
+
+\subsection{Lỗi type mismatch trong phương thức setStatusId}
+
+\begin{itemize}
+    \item \textbf{Tệp tin:} \texttt{/ohs/models/Status.java}
+    \item \textbf{Vị trí:} Dòng 24 - 25
+    \item \textbf{Mô tả lỗi:} Lỗi biên dịch, sai kiểu dữ liệu trong phép gán một String cho một biến kiểu int và ngược lại.
+\end{itemize}
+
+\textbf{Mã nguồn hiện tại} 
+
+\begin{lstlisting}[language=Java]
+public void setStatusId(String statusId) {
+    this._status = statusId;
+    this.statusId = this._status;
+}
+
+\end{lstlisting}
+
+\textbf{Đề xuất sửa đổi} 
+\begin{lstlisting}[language=Java]
+public void setStatusId(String statusId) {
+    this.statusId = statusId;
+}
+\end{lstlisting}
+
+\subsection{Lỗi so sánh chuỗi bằng toán tử \texttt{!=}}
+
+\begin{itemize}
+    \item \textbf{Tệp tin:} \texttt{/ohs/services/DoctorService.java}
+    \item \textbf{Vị trí:} Dòng 240 - 241
+    \item \textbf{Mô tả lỗi:} Lỗi sai ngữ nghĩa, sử dụng toán tử \texttt{!=} để so sánh chuỗi, dẫn đến kết quả không chính xác. Nên sử dụng phương thức \texttt{.equals()} để so sánh nội dung chuỗi.
+\end{itemize}
+
+\textbf{Mã nguồn hiện tại} 
+
+\begin{lstlisting}[language=Java]
+if (rs.getString("symptoms") != "") // wrong syntax
+    appointment.setSymptoms(rs.getString("symptoms"));
+\end{lstlisting}
+
+\textbf{Đề xuất sửa đổi} 
+\begin{lstlisting}[language=Java]
+if (!rs.getString("symptoms").equals("")) // correct syntax
+    appointment.setSymptoms(rs.getString("symptoms"));
+\end{lstlisting}
+
 
 
 \subsection{Lỗi []}
 
 \begin{itemize}
     \item \textbf{Tệp tin:} \texttt{[Tên\_file].java}
+    \item \textbf{Vị trí:} Dòng xx - yy
     \item \textbf{Mô tả lỗi:} Sử dụng cộng chuỗi trực tiếp trong truy vấn SQL, gây nguy cơ bảo mật nghiêm trọng.
 \end{itemize}
 
@@ -52,3 +103,5 @@ PreparedStatement pstmt =
     conn.prepareStatement(sql);
 pstmt.setInt(1, id);
 \end{lstlisting}
+
+                
