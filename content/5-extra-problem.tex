@@ -79,29 +79,78 @@ if (!rs.getString("symptoms").equals("")) // correct syntax
 \end{lstlisting}
 
 
-
-\subsection{Lỗi []}
+\subsection{Lỗi không đóng tài nguyên đúng cách}
 
 \begin{itemize}
-    \item \textbf{Tệp tin:} \texttt{[Tên\_file].java}
-    \item \textbf{Vị trí:} Dòng xx - yy
-    \item \textbf{Mô tả lỗi:} Sử dụng cộng chuỗi trực tiếp trong truy vấn SQL, gây nguy cơ bảo mật nghiêm trọng.
+    \item \textbf{Tệp tin:} \texttt{AdminService.java}
+    \item \textbf{Vị trí:} Dòng 498
+    \item \textbf{Mô tả lỗi:} Tài nguyên \texttt{PreparedStatement} và \texttt{Connection} không được đóng đúng cách trong khối \texttt{finally}, có thể gây rò rỉ tài nguyên (resource leak).
 \end{itemize}
 
-\textbf{Mã nguồn hiện tại} 
+\textbf{Mã nguồn hiện tại}
 
 \begin{lstlisting}[language=Java]
-String sql = "SELECT * FROM users 
-              WHERE id = " + id;
+finally {
+    close(rs, preparedStatement, con);
+}
 \end{lstlisting}
 
-\textbf{Đề xuất sửa đổi} 
+\textbf{Đề xuất sửa đổi}\\
+Đảm bảo kiểm tra null trước khi đóng tài nguyên.
 \begin{lstlisting}[language=Java]
-String sql = "SELECT * FROM users 
-              WHERE id = ?";
-PreparedStatement pstmt = 
-    conn.prepareStatement(sql);
-pstmt.setInt(1, id);
+finally {
+    if (rs != null) rs.close();
+    if (preparedStatement != null) preparedStatement.close();
+    if (con != null) con.close();
+}
 \end{lstlisting}
+
+
+\subsection{Lỗi mã hóa cứng thông tin nhạy cảm}
+
+\begin{itemize}
+    \item \textbf{Tệp tin:} \texttt{MailService.java}
+    \item \textbf{Vị trí:} Dòng 36 -- 37
+    \item \textbf{Mô tả lỗi:} Thông tin nhạy cảm như tên người dùng và mật khẩu được mã hóa cứng trong mã nguồn, gây rủi ro bảo mật nghiêm trọng nếu mã nguồn bị lộ.
+\end{itemize}
+
+\textbf{Mã nguồn hiện tại}
+
+\begin{lstlisting}[language=Java]
+final String userName = jdbcUtility.getPropertyValue("email");
+final String appPassword = jdbcUtility.getPropertyValue("appPassword");
+\end{lstlisting}
+
+\textbf{Đề xuất sửa đổi}
+
+\begin{lstlisting}[language=Java]
+final String userName = System.getenv("EMAIL_USERNAME");
+final String appPassword = System.getenv("EMAIL_APP_PASSWORD");
+\end{lstlisting}
+
+
+% \subsection{Lỗi []}
+
+% \begin{itemize}
+%     \item \textbf{Tệp tin:} \texttt{[Tên\_file].java}
+%     \item \textbf{Vị trí:} Dòng xx - yy
+%     \item \textbf{Mô tả lỗi:} Sử dụng cộng chuỗi trực tiếp trong truy vấn SQL, gây nguy cơ bảo mật nghiêm trọng.
+% \end{itemize}
+
+% \textbf{Mã nguồn hiện tại} 
+
+% \begin{lstlisting}[language=Java]
+% String sql = "SELECT * FROM users 
+%               WHERE id = " + id;
+% \end{lstlisting}
+
+% \textbf{Đề xuất sửa đổi} 
+% \begin{lstlisting}[language=Java]
+% String sql = "SELECT * FROM users 
+%               WHERE id = ?";
+% PreparedStatement pstmt = 
+%     conn.prepareStatement(sql);
+% pstmt.setInt(1, id);
+% \end{lstlisting}
 
                 

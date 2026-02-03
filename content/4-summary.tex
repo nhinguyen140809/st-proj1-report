@@ -1,24 +1,25 @@
 \section{Tóm tắt kết quả}
 
-Sau khi rà soát các tệp nguồn trong thư mục \texttt{com/}, nhóm đã tổng hợp và phân loại các lỗi dựa trên bộ \textit{Java Code Review Checklist}. Tổng cộng phát hiện được \textbf{[Tổng số]} lỗi, được tóm tắt qua bảng dưới đây:
+Sau khi rà soát các tệp nguồn trong thư mục \texttt{com/}, nhóm đã tổng hợp và phân loại các lỗi dựa trên bộ \textit{Java Code Review Checklist}. Tổng cộng phát hiện được 273 lỗi, được tóm tắt qua bảng dưới đây:
 
-\begin{longtable}{|l|c|r|} 
+\begin{longtable}{|l|c|} 
 \hline 
-\textbf{Nhóm mục tiêu (Objective)} & \textbf{Số lượng lỗi} & \textbf{Tỷ lệ (\%)} \\ 
+\textbf{Nhóm mục tiêu (Objective)} & \textbf{Số lượng lỗi}  \\ 
 \hline 
-I. Defect Objective & [Số] & [\%] \\ 
+I. Defect Objective & 219 \\ 
 \hline 
-II. Ambiguity Objective & [Số] & [\%] \\ 
+II. Ambiguity Objective & 21 \\ 
 \hline 
-III. Redundance Objective & [Số] & [\%] \\
+III. Redundance Objective & 33 \\
 \hline 
-\textbf{Tổng cộng} & \textbf{[Tổng]} & \textbf{100\%} \\ 
+\textbf{Tổng cộng} & \textbf{273} \\ 
 \hline 
 \end{longtable}
 
 \noindent Dưới đây là phân tích chi tiết các nhóm lỗi có tần suất xuất hiện cao nhất:
 
 \begin{itemize} [itemsep=0pt] 
-    \item \textbf{Nhóm lỗi [Mã số - Tên nhóm, VD: I.1 Variable Declaration]:} Chiếm [\%] tổng số lỗi. Các vi phạm chủ yếu tập trung vào [ví dụ: quy tắc đặt tên camelCase, biến chưa được khởi tạo]. 
-    \item \textbf{Nhóm lỗi [Mã số - Tên nhóm, VD: I.9 Comment]:} Chiếm [\%] tổng số lỗi. Phổ biến nhất là tình trạng [ví dụ: thiếu Javadoc cho các phương thức quan trọng hoặc comment không cập nhật theo code]. \item \textbf{Nhóm lỗi [Mã số - Tên nhóm, VD: I.7 Control Flow]:} Chiếm [\%] tổng số lỗi. Các vấn đề tiêu biểu gồm [ví dụ: thiếu câu lệnh default trong cấu trúc switch-case hoặc vòng lặp tiềm ẩn nguy cơ vô hạn]. 
+    \item \textbf{Nhóm lỗi I.9 - Comment:} Chiếm 74 lỗi. Các vi phạm chủ yếu tập trung vào thiếu Javadoc cho các phương thức, lớp quan trọng hoặc comment không được viết đầy đủ.
+    \item \textbf{Nhóm lỗi I.1 - Variable and Constant Declaration:} Chiếm 57 lỗi. Các lỗi chủ yếu là tên biến không tuân theo convention, kiểu dữ liệu của biến không phù hợp, hoặc biến được khai báo nhưng không được khởi tạo đúng cách. 
+    \item \textbf{Nhóm lỗi I.7 Control Flow:} Chiếm 23 lỗi. Các vấn đề tiêu biểu là các ngoại lệ không được xử lý đúng cách, hoặc các khối điều khiển trống (null body control structure) không được chú thích rõ ràng. 
 \end{itemize}
